@@ -1,0 +1,3 @@
+[submodule "BiblioPixel"]
+	path = BiblioPixel
+	url = https://github.com/ManiacalLabs/BiblioPixel.git
