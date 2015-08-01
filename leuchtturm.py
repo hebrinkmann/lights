@@ -1,17 +1,6 @@
 import bibliopixel.colors as colors
 #Load driver for your hardware, visualizer just for example
-from bibliopixel.drivers.LPD8806 import DriverLPD8806
-from bibliopixel.drivers.driver_base import ChannelOrder
-import math
 import time
-import pdb
-
-driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
-
-#load the LEDMatrix class
-from bibliopixel.led import *
-#change rotation and vert_flip as needed by your display
-led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
 
 from bibliopixel.animation import BaseMatrixAnim
 class Leuchtturm(BaseMatrixAnim):
