@@ -2,6 +2,7 @@ from flask import Flask
 from bibliopixel.drivers.LPD8806 import DriverLPD8806
 from bibliopixel.drivers.driver_base import ChannelOrder
 import light
+import leuchtturm
 
 driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
 
@@ -15,31 +16,55 @@ app.debug = True
 
 light = light.Light(led, (255, 192, 128))
 
+light.showDefaultColor()
+light.update()
+
+anims = {
+    "leuchtturm": leuchtturm.Leuchtturm(led, period = 5)
+}
+
 @app.route("/")
 def hello():
     return "Hello World!"
 
 @app.route("/showDefaultColor", methods = ["PUT"])
 def showDefaultColor():
+    light.stopAnim()
     light.showDefaultColor()
     light.update()
     return repr(light.getColor())
 
 @app.route("/off", methods = ["PUT"])
 def off():
+    light.stopAnim()
     light.setValue(0)
     light.update()
     return repr(light.getColor())
 
 @app.route('/value/<int:value>', methods = ["PUT"])
 def setValue(value):
+    light.stopAnim()
     light.setValue(value)
     light.update()
     return repr(light.getColor())
 
+@app.route('/anim/<string:value>', methods = ["PUT"])
+def anim(value):
+    light.stopAnim()
+    anim = None
+    try:
+        anim = anims[value]
+        light.stopAnim()
+        light.startAnim(anim)
+    except KeyError:
+        light.showDefaultColor
+        light.update()
+
+    return value
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run()
 
 led.all_off()
 led.update()
