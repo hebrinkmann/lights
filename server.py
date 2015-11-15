@@ -1,6 +1,7 @@
 from flask import Flask
 from bibliopixel.drivers.LPD8806 import DriverLPD8806
 from bibliopixel.drivers.driver_base import ChannelOrder
+import json
 import light
 import leuchtturm
 
@@ -61,6 +62,10 @@ def anim(value):
         light.update()
 
     return value
+
+@app.route('/light', methods = ["GET"])
+def getLight():
+    return json.JSONEncoder().encode({ "light": { "color": "green"}})
 
 
 if __name__ == "__main__":
