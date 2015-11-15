@@ -6,6 +6,7 @@ import light
 import leuchtturm
 import fadedown
 import digitalclock
+import stripeclock
 
 driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
 
@@ -24,6 +25,7 @@ class MyLight(light.Light):
             '1': lambda: self.startAnim(leuchtturm.Leuchtturm(self._led, period = 5)),
             '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColor(), duration = 30)),
             '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColor())),
+            '4': lambda: self.startAnim(stripeclock.StripeClock(self._led, backgroundColor = self.getColor())),
             'o': lambda: self.setValue(0),
             'O': lambda: self.setValue(255),
             'r': lambda: self.decreaseRed(),
