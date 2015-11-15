@@ -3,6 +3,7 @@ import bibliopixel.colors as colors
 import time
 import math
 import pdb
+import datetime
 
 from bibliopixel.animation import BaseMatrixAnim
 class DigitalClock(BaseMatrixAnim):
@@ -14,12 +15,75 @@ class DigitalClock(BaseMatrixAnim):
     "* *",
     "***"
     ],
+    '1': [
+    "  *",
+    "  *",
+    "  *",
+    "  *",
+    "  *"
+    ],
     '2': [
     "***",
     "  *",
     "***",
     "*  ",
     "***"
+    ],
+    '3': [
+    "***",
+    "  *",
+    "***",
+    "  *",
+    "***"
+    ],
+    '4': [
+    "* *",
+    "* *",
+    "***",
+    "  *",
+    "  *"
+    ],
+    '5': [
+    "***",
+    "*  ",
+    "***",
+    "  *",
+    "***"
+    ],
+    '6': [
+    "***",
+    "*  ",
+    "***",
+    "* *",
+    "***"
+    ],
+    '7': [
+    "***",
+    "  *",
+    "  *",
+    "  *",
+    "  *"
+    ],
+    '8': [
+    "***",
+    "* *",
+    "***",
+    "* *",
+    "***"
+    ],
+    '9': [
+    "***",
+    "* *",
+    "***",
+    "  *",
+    "***"
+    ],
+    ':': [
+    "   ",
+    " * ",
+    "   ",
+    " * ",
+    "   "
     ]
     }
     def __init__(self, led, start=0, end=-1, color=colors.White):
@@ -29,8 +93,8 @@ class DigitalClock(BaseMatrixAnim):
 
     def step(self, amt = 1):
         self._led.all_off()
-        offset = 0
-        for digit in "20":
+        offset = self._led.width - self._step / 3;
+        for digit in datetime.datetime.now().strftime("%H:%M"):
             dots = self.digits[digit]
 
             y = 0
