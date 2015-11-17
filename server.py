@@ -65,6 +65,10 @@ def anim(value):
 
     return value
 
+@app.route('/anim', methods = ["GET"])
+def getAnim():
+    return anim.__name__
+
 @app.route('/light', methods = ["GET"])
 def getLight():
     return json.JSONEncoder().encode({ "light": { "color": "green"}})
