@@ -75,7 +75,7 @@ def listAnims():
 
 @app.route('/light', methods = ["GET"])
 def getLight():
-    return json.JSONEncoder().encode({ "light": { "color": "green"}})
+    return json.JSONEncoder().encode({ "light": { "color": light.getColor()}})
 
 
 if __name__ == "__main__":
