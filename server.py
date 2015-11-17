@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 from bibliopixel.drivers.LPD8806 import DriverLPD8806
 from bibliopixel.drivers.driver_base import ChannelOrder
 import json
@@ -77,6 +78,13 @@ def listAnims():
 def getLight():
     return json.JSONEncoder().encode({ "light": { "color": light.getColor()}})
 
+@app.route('/light', methods = ["PUT"])
+def setLight():
+    data = json.JSONDecoder().decode(request.data)
+    color = data["light"]['color']
+    light.setColor(color)
+
+    return getLight()
 
 if __name__ == "__main__":
     app.run()
