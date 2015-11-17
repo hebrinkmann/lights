@@ -4,6 +4,7 @@ from bibliopixel.drivers.driver_base import ChannelOrder
 import json
 import light
 import leuchtturm
+import stripeclock
 
 driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
 
@@ -21,7 +22,8 @@ light.showDefaultColor()
 light.update()
 
 anims = {
-    "leuchtturm": leuchtturm.Leuchtturm(led, period = 5)
+    "leuchtturm": leuchtturm.Leuchtturm(led, period = 5),
+    "stripeclock": stripeclock.StripeClock(led, backgroundColor = light.getColor())
 }
 
 @app.route("/")
