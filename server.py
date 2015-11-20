@@ -1,8 +1,9 @@
 from flask import Flask
 from flask import request
+from flask import Response
+from flask import json
 from bibliopixel.drivers.LPD8806 import DriverLPD8806
 from bibliopixel.drivers.driver_base import ChannelOrder
-import json
 import light
 import leuchtturm
 import stripeclock
@@ -24,7 +25,7 @@ light.update()
 
 anims = {
     "leuchtturm": leuchtturm.Leuchtturm(led, period = 5),
-    "stripeclock": stripeclock.StripeClock(led, backgroundColor = light.getColor())
+    "stripeclock": stripeclock.StripeClock(led, backgroundColor = light.getColorScaled())
 }
 
 @app.route("/")
@@ -76,15 +77,32 @@ def listAnims():
 
 @app.route('/light', methods = ["GET"])
 def getLight():
-    return json.JSONEncoder().encode({ "light": { "color": light.getColor()}})
+    return Response(
+        json.dumps({
+            "light": {
+                "color": light.getColor(),
+                "value": light.getValue()
+            }
+        }),
+        mimetype = 'application/json'
+    )
 
-@app.route('/light', methods = ["PUT"])
-def setLight():
+@app.route('/color', methods = ["GET"])
+def getColor():
+    return Response(json.dumps(light.getColor()), mimetype = 'application/json')
+
+@app.route('/color', methods = ["PUT"])
+def setColor():
+    oldColor = light.getColor()
     data = json.JSONDecoder().decode(request.data)
-    color = data["light"]['color']
+    color = data['color']
     light.setColor(color)
 
-    return getLight()
+    return json.JSONEncoder().encode(oldColor)
+
+@app.route('/help', methods = ["GET"])
+def help():
+    return str(app.url_map)
 
 if __name__ == "__main__":
     app.run()
