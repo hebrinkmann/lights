@@ -23,9 +23,9 @@ class MyLight(light.Light):
     def initCommands(self):
         self._commands = {
             '1': lambda: self.startAnim(leuchtturm.Leuchtturm(self._led, period = 5)),
-            '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColor(), duration = 30)),
-            '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColor())),
-            '4': lambda: self.startAnim(stripeclock.StripeClock(self._led, backgroundColor = self.getColor())),
+            '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColorScaled(), duration = 30)),
+            '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColorScaled())),
+            '4': lambda: self.startAnim(stripeclock.StripeClock(self._led, backgroundColor = self.getColorScaled())),
             'o': lambda: self.setValue(0),
             'O': lambda: self.setValue(255),
             'r': lambda: self.decreaseRed(),
