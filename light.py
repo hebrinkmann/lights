@@ -19,9 +19,12 @@ class Light(object):
         self.showColor()
 
     def showColor(self):
-        self._led.fillScreen(self.getColor())
+        self._led.fillScreen(self.getColorScaled())
 
     def getColor(self):
+        return self._color
+
+    def getColorScaled(self):
         return colors.color_scale(self._color, self._value)
 
     def showDefaultColor(self):
