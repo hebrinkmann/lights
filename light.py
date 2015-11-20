@@ -72,6 +72,9 @@ class Light(object):
         self._color = (self._color[0], self._color[1], max(0, self._color[2] - 4))
         self.showColor()
 
+    def getValue(self):
+        return self._value
+
     def setValue(self, value):
         self._value = max(0, min(255, value))
         self.showColor()
