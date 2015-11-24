@@ -1,19 +1,23 @@
 import bibliopixel.colors as colors
 #Load driver for your hardware, visualizer just for example
 from bibliopixel.drivers.LPD8806 import DriverLPD8806
+from bibliopixel.drivers.visualizer import DriverVisualizer
 from bibliopixel.drivers.driver_base import ChannelOrder
 import light
 import leuchtturm
 import fadedown
 import digitalclock
 import stripeclock
+import fire
 
-driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
+#driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
+driver = DriverVisualizer(width=10, height=6, pixelSize=20, stayTop = True)
 
 #load the LEDMatrix class
 from bibliopixel.led import *
 #change rotation and vert_flip as needed by your display
-led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
+#led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
+led = LEDMatrix(driver, width=10, height=6, rotation = MatrixRotation.ROTATE_180)
 
 
 class MyLight(light.Light):
@@ -26,6 +30,7 @@ class MyLight(light.Light):
             '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColorScaled(), duration = 30)),
             '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColorScaled())),
             '4': lambda: self.startAnim(stripeclock.StripeClock(self._led, backgroundColor = self.getColorScaled())),
+            '5': lambda: self.startAnim(fire.Fire(self._led)),
             'o': lambda: self.setValue(0),
             'O': lambda: self.setValue(255),
             'r': lambda: self.decreaseRed(),
