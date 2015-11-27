@@ -30,7 +30,7 @@ class MyLight(light.Light):
             '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColorScaled(), duration = 30)),
             '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColorScaled())),
             '4': lambda: self.startAnim(stripeclock.StripeClock(self._led, backgroundColor = self.getColorScaled())),
-            '5': lambda: self.startAnim(fire.Fire(self._led)),
+            '5': lambda: self.startAnim(fire.Fire(self._led, color = self.getColorScaled())),
             'o': lambda: self.setValue(0),
             'O': lambda: self.setValue(255),
             'r': lambda: self.decreaseRed(),
