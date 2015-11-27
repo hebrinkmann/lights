@@ -3,11 +3,12 @@ import random
 
 from bibliopixel.animation import BaseMatrixAnim
 class Fire(BaseMatrixAnim):
-    def __init__(self, led, start=0, end=-1):
+    def __init__(self, led, start=0, end=-1, color = colors.Yellow):
         #The base class MUST be initialized by calling super like this
         super(Fire, self).__init__(led, start, end)
         self._buffer = [[[0.0 for x in range(led.height)] for x in range(led.width)] for x in range(2)]
         self._led = led
+        self._color = color
 
     def step(self, amt = 1):
         led = self._led
@@ -40,11 +41,12 @@ class Fire(BaseMatrixAnim):
                     if y + 1 < led.height:
                         self._buffer[index1][x][y + 1] = p
             for x in range(led.width):
-                self._buffer[index1][x][0] = random.uniform(0.75, 1.0)
+                self._buffer[index1][x][0] = random.uniform(0.5, 1.0)
 
             for y in range(led.height):
                 for x in range(led.width):
                     value = int(self._buffer[index1][x][y] * 255)
-                    led.setRGB(x, y, value, value, value)
+                    color = colors.color_scale(self._color, value)
+                    led.setRGB(x, y, color[0], color[1], color[2])
 
         self._step += amt
