@@ -11,7 +11,7 @@ class Light(object):
         self._value = 255
 
     def initCommands(self):
-        self._commands = {}
+        self.commands = {}
 
     def setColor(self, color):
         self._color = color
@@ -96,7 +96,7 @@ class Light(object):
                 self.stopAnim()
 
                 try:
-                    command = self._commands[c]
+                    command = self.commands[c]
                     if command:
                         command()
                 except KeyError:

@@ -10,14 +10,14 @@ import digitalclock
 import stripeclock
 import fire
 
-#driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
-driver = DriverVisualizer(width=10, height=6, pixelSize=20, stayTop = True)
+driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
+#driver = DriverVisualizer(width=10, height=6, pixelSize=20, stayTop = True)
 
 #load the LEDMatrix class
 from bibliopixel.led import *
 #change rotation and vert_flip as needed by your display
-#led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
-led = LEDMatrix(driver, width=10, height=6, rotation = MatrixRotation.ROTATE_180)
+led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
+#led = LEDMatrix(driver, width=10, height=6, rotation = MatrixRotation.ROTATE_180)
 
 
 class MyLight(light.Light):
@@ -25,7 +25,7 @@ class MyLight(light.Light):
         super(MyLight, self).__init__(led, defaultColor)
 
     def initCommands(self):
-        self._commands = {
+        self.commands = {
             '1': lambda: self.startAnim(leuchtturm.Leuchtturm(self._led, period = 5)),
             '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColorScaled(), duration = 30)),
             '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColorScaled())),
