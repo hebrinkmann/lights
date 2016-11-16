@@ -20,12 +20,12 @@ app.debug = True
 
 light = light.Light(led, (255, 192, 128))
 
-light.showDefaultColor()
+light.show_default_color()
 light.update()
 
 anims = {
     "leuchtturm": leuchtturm.Leuchtturm(led, period = 5),
-    "stripeclock": stripeclock.StripeClock(led, backgroundColor = light.getColorScaled())
+    "stripeclock": stripeclock.StripeClock(led, backgroundColor = light.get_color_scaled())
 }
 
 @app.route("/")

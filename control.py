@@ -10,14 +10,14 @@ import digitalclock
 import stripeclock
 import fire
 
-driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
-#driver = DriverVisualizer(width=10, height=6, pixelSize=20, stayTop = True)
+#driver = DriverLPD8806(num = 60, c_order = ChannelOrder.BRG)
+driver = DriverVisualizer(width=10, height=6, pixelSize=20, stayTop = True)
 
 #load the LEDMatrix class
 from bibliopixel.led import *
 #change rotation and vert_flip as needed by your display
-led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
-#led = LEDMatrix(driver, width=10, height=6, rotation = MatrixRotation.ROTATE_180)
+#led = LEDMatrix(driver, width=10, height=6, serpentine = False, rotation = MatrixRotation.ROTATE_0, vert_flip = False)
+led = LEDMatrix(driver, width=10, height=6, rotation = MatrixRotation.ROTATE_180)
 
 
 class MyLight(light.Light):
@@ -26,22 +26,22 @@ class MyLight(light.Light):
 
     def init_commands(self):
         self.commands = {
-            '1': lambda: self.startAnim(leuchtturm.Leuchtturm(self._led, period = 5)),
-            '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColorScaled(), duration = 30)),
-            '3': lambda: self.startAnim(digitalclock.DigitalClock(self._led, color = self.getColorScaled())),
-            '4': lambda: self.startAnim(stripeclock.StripeClock(self._led, backgroundColor = self.getColorScaled())),
-            '5': lambda: self.startAnim(fire.Fire(self._led, color = self.getColorScaled())),
-            'o': lambda: self.setValue(0),
-            'O': lambda: self.setValue(255),
-            'r': lambda: self.decreaseRed(),
-            'R': lambda: self.increaseRed(),
-            'g': lambda: self.decreaseGreen(),
-            'G': lambda: self.increaseGreen(),
-            'b': lambda: self.decreaseBlue(),
-            'B': lambda: self.increaseBlue(),
+            '1': lambda: self.start_anim(leuchtturm.Leuchtturm(self._led, period = 5)),
+            '2': lambda: self.start_anim(fadedown.FadeDown(self._led, color = self.get_color_scaled(), duration = 30)),
+            '3': lambda: self.start_anim(digitalclock.DigitalClock(self._led, color = self.get_color_scaled())),
+            '4': lambda: self.start_anim(stripeclock.StripeClock(self._led, backgroundColor = self.get_color_scaled())),
+            '5': lambda: self.start_anim(fire.Fire(self._led, color = self.get_color_scaled())),
+            'o': lambda: self.set_value(0),
+            'O': lambda: self.set_value(255),
+            'r': lambda: self.decrease_red(),
+            'R': lambda: self.increase_red(),
+            'g': lambda: self.decrease_green(),
+            'G': lambda: self.increase_green(),
+            'b': lambda: self.decrease_blue(),
+            'B': lambda: self.increase_blue(),
             'w': lambda: self.set_color(colors.White),
-            '+': lambda: self.increaseValue(),
-            '-': lambda: self.decreaseValue()
+            '+': lambda: self.increase_value(),
+            '-': lambda: self.decrease_value()
         }
 
 light = MyLight(led, (255, 192, 128))

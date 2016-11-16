@@ -21,63 +21,63 @@ class Light(object):
         self.show_color()
 
     def show_color(self):
-        self._led.fillScreen(self.getColorScaled())
+        self._led.fillScreen(self.get_color_scaled())
 
     def get_color(self):
         return self._color
 
-    def getColorScaled(self):
+    def get_color_scaled(self):
         return colors.color_scale(self._color, self._value)
 
-    def showDefaultColor(self):
+    def show_default_color(self):
         self._color = self._defaultColor
         self.show_color()
 
-    def startAnim(self, anim, sleep = None, fps = 25):
+    def start_anim(self, anim, sleep = None, fps = 25):
         self.anim = anim
         anim.run(threaded = True, sleep = sleep, fps = fps)
 
-    def stopAnim(self):
+    def stop_anim(self):
         if self.anim != None:
             self.anim.stopThread(True)
             self.anim = None
 
-    def increaseValue(self):
+    def increase_value(self):
         self._value = min(255, self._value + 4)
         self.show_color()
 
-    def decreaseValue(self):
+    def decrease_value(self):
         self._value = max(0, self._value - 4)
         self.show_color()
 
-    def increaseRed(self):
+    def increase_red(self):
         self._color = (min(255, self._color[0] + 4), self._color[1], self._color[2])
         self.show_color()
 
-    def decreaseRed(self):
+    def decrease_red(self):
         self._color = (max(0, self._color[0] - 4), self._color[1], self._color[2])
         self.show_color()
 
-    def increaseGreen(self):
+    def increase_green(self):
         self._color = (self._color[0], min(255, self._color[1] + 4), self._color[2])
         self.show_color()
 
-    def decreaseGreen(self):
+    def decrease_green(self):
         self._color = (self._color[0], max(0, self._color[1] - 4), self._color[2])
         self.show_color()
 
-    def increaseBlue(self):
+    def increase_blue(self):
         self._color = (self._color[0], self._color[1], min(255, self._color[2] + 4))
         self.show_color()
 
-    def decreaseBlue(self):
+    def decrease_blue(self):
         self._color = (self._color[0], self._color[1], max(0, self._color[2] - 4))
         self.show_color()
 
-    def getValue(self):
+    def get_value(self):
         return self._value
 
-    def setValue(self, value):
+    def set_value(self, value):
         self._value = max(0, min(255, value))
         self.show_color()
 
@@ -86,7 +86,7 @@ class Light(object):
 
     def run(self):
         self.init_commands()
-        self.showDefaultColor()
+        self.show_default_color()
 
         while True:
             self._led.update()
@@ -95,11 +95,11 @@ class Light(object):
             if (c == 'q'):
                 break
             else:
-                self.stopAnim()
+                self.stop_anim()
 
                 try:
                     command = self.commands[c]
                     if command:
                         command()
                 except KeyError:
-                    self.showDefaultColor()
+                    self.show_default_color()
