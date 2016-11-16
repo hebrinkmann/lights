@@ -2,6 +2,7 @@ import getch
 import bibliopixel.colors as colors
 import matrix_animations
 
+
 class Light(object):
     def __init__(self, led, defaultColor):
         self.anim = None
@@ -9,19 +10,20 @@ class Light(object):
         self._defaultColor = defaultColor
         self._color = defaultColor
         self._value = 255
+        self.commands = None
 
-    def initCommands(self):
+    def init_commands(self):
         self.commands = {}
 
-    def setColor(self, color):
+    def set_color(self, color):
         self._color = color
         self._value = 255
-        self.showColor()
+        self.show_color()
 
-    def showColor(self):
+    def show_color(self):
         self._led.fillScreen(self.getColorScaled())
 
-    def getColor(self):
+    def get_color(self):
         return self._color
 
     def getColorScaled(self):
@@ -29,7 +31,7 @@ class Light(object):
 
     def showDefaultColor(self):
         self._color = self._defaultColor
-        self.showColor()
+        self.show_color()
 
     def startAnim(self, anim, sleep = None, fps = 25):
         self.anim = anim
@@ -42,48 +44,48 @@ class Light(object):
 
     def increaseValue(self):
         self._value = min(255, self._value + 4)
-        self.showColor()
+        self.show_color()
 
     def decreaseValue(self):
         self._value = max(0, self._value - 4)
-        self.showColor()
+        self.show_color()
 
     def increaseRed(self):
         self._color = (min(255, self._color[0] + 4), self._color[1], self._color[2])
-        self.showColor()
+        self.show_color()
 
     def decreaseRed(self):
         self._color = (max(0, self._color[0] - 4), self._color[1], self._color[2])
-        self.showColor()
+        self.show_color()
 
     def increaseGreen(self):
         self._color = (self._color[0], min(255, self._color[1] + 4), self._color[2])
-        self.showColor()
+        self.show_color()
 
     def decreaseGreen(self):
         self._color = (self._color[0], max(0, self._color[1] - 4), self._color[2])
-        self.showColor()
+        self.show_color()
 
     def increaseBlue(self):
         self._color = (self._color[0], self._color[1], min(255, self._color[2] + 4))
-        self.showColor()
+        self.show_color()
 
     def decreaseBlue(self):
         self._color = (self._color[0], self._color[1], max(0, self._color[2] - 4))
-        self.showColor()
+        self.show_color()
 
     def getValue(self):
         return self._value
 
     def setValue(self, value):
         self._value = max(0, min(255, value))
-        self.showColor()
+        self.show_color()
 
     def update(self):
         self._led.update()
 
     def run(self):
-        self.initCommands()
+        self.init_commands()
         self.showDefaultColor()
 
         while True:

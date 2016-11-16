@@ -24,7 +24,7 @@ class MyLight(light.Light):
     def __init__(self, led, defaultColor):
         super(MyLight, self).__init__(led, defaultColor)
 
-    def initCommands(self):
+    def init_commands(self):
         self.commands = {
             '1': lambda: self.startAnim(leuchtturm.Leuchtturm(self._led, period = 5)),
             '2': lambda: self.startAnim(fadedown.FadeDown(self._led, color = self.getColorScaled(), duration = 30)),
@@ -39,7 +39,7 @@ class MyLight(light.Light):
             'G': lambda: self.increaseGreen(),
             'b': lambda: self.decreaseBlue(),
             'B': lambda: self.increaseBlue(),
-            'w': lambda: self.setColor(colors.White),
+            'w': lambda: self.set_color(colors.White),
             '+': lambda: self.increaseValue(),
             '-': lambda: self.decreaseValue()
         }
