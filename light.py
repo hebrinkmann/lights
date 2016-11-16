@@ -1,6 +1,5 @@
 import getch
 import bibliopixel.colors as colors
-import matrix_animations
 
 
 class Light(object):
